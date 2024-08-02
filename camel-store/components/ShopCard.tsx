@@ -4,36 +4,47 @@ import Image from "next/image";
 // Define the interface for the props
 interface ShopCardProps {
 	id: number;
-	name: string;
+	product_name: string;
 	description: string;
-	stock_quantity: number;
-	category: string;
+	quantity_in_stock: number;
+	category: number;
+	price: string;
 	image_url: string;
 }
 
 // Define the ShopCard component with TypeScript
 const ShopCard: React.FC<ShopCardProps> = ({
-	name,
+	product_name,
 	description,
-	stock_quantity,
+	quantity_in_stock,
 	category,
+	price,
 	image_url,
 }) => {
+	const fallbackImage = "/Untitled.png";
+
 	return (
-		<div className="w-60 h-80 p-3 rounded-md bg-zinc-700 flex flex-col">
-			<div className="aspect-square bg-cyan-300 rounded-md relative">
+		<div className="w-62 p-2 rounded-md bg-back2 flex flex-col">
+			<div className="relative w-56 h-60 aspect-square bg-back1 rounded-md overflow-hidden">
 				<Image
-					src={image_url}
-					alt={name}
-					layout="fill" // `fill` makes the image cover the parent div
-					objectFit="cover" // Adjusts how the image fits into the container
+					src={image_url || fallbackImage}
+					alt={product_name}
+					layout="fill"
+					objectFit="cover"
 					className="rounded-md"
+					onError={(e) => {
+						(e.target as HTMLImageElement).src = fallbackImage;
+					}}
 				/>
 			</div>
-			<h2 className="text-lg font-semibold text-white mt-2">{name}</h2>
-			<p className="text-sm text-gray-300 mt-1">{description}</p>
-			<p className="text-sm text-gray-400 mt-1">Stock: {stock_quantity}</p>
-			<p className="text-sm text-gray-400 mt-1">Category: {category}</p>
+			<div className=" flex flex-col items-center py-1">
+				<h2 className="text-lg font-semibold text-textprimary mt-2">
+					{product_name}
+				</h2>
+				<p className="text-sm text-textsecondary mt-1">
+					{parseFloat(price).toFixed(0)}
+				</p>
+			</div>
 		</div>
 	);
 };
