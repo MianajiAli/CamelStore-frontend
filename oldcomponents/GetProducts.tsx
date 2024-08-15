@@ -38,19 +38,20 @@ const ParentComponent: React.FC = () => {
 		<div>
 			<h1>Product List</h1>
 			<div className="w-full flex flex-row flex-wrap justify-center gap-5">
+				{/* <Link key={product.id} href={`/shop/` + product.id.toString()}>
+				</Link> */}
 				{products.map((product) => (
-					<Link key={product.id} href={`/shop/` + product.id.toString()}>
-						<ShopCard
-							key={product.id}
-							id={product.id}
-							product_name={product.product_name}
-							description={product.description}
-							quantity_in_stock={product.quantity_in_stock}
-							category={product.category}
-							price={product.price}
-							image_url={product.image_url}
-						/>
-					</Link>
+					<ShopCard
+						key={product.id}
+						id={product.id}
+						product_name={product.product_name}
+						description={product.description}
+						quantity_in_stock={product.quantity_in_stock}
+						category={product.category}
+						price={product.price}
+						image_url={product.image_url}
+					/>
+
 				))}
 			</div>
 		</div>
